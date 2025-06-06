@@ -212,7 +212,14 @@ shape = SubResource("RectangleShape2D_gl8cc")
 zoom = Vector2(3.065, 3.065)
 
 [node name="dash_timer" type="Timer" parent="."]
-one_shot = true
+
+[node name="stamina_bar" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -25.0
+offset_right = 49.0
+offset_bottom = -2.0
+theme_override_font_sizes/font_size = 8
+text = "stamina:"
 
 [node name="sekundara" type="Timer" parent="."]
 
