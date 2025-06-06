@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://ecucgu4gd0rp"]
+
+[ext_resource type="Texture2D" uid="uid://v0krrtplrs83" path="res://assets/Player_Sprites/Mage_Run.png" id="1_d1nyc"]
+[ext_resource type="Script" uid="uid://r7va0in2yftc" path="res://scripts/enemy_scripts/evil_player.gd" id="1_iej5f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iej5f"]
+atlas = ExtResource("1_d1nyc")
+region = Rect2(0, 0, 35, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaue8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iej5f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oaue8"]
+size = Vector2(22, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1nyc"]
+size = Vector2(21, 32)
+
+[node name="evil_player" type="CharacterBody2D"]
+script = ExtResource("1_iej5f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.941176, 0.0470588, 0.0470588, 1)
+sprite_frames = SubResource("SpriteFrames_oaue8")
+flip_h = true
+
+[node name="hitbox_container" type="Area2D" parent="."]
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox_container"]
+position = Vector2(-2, 2.5)
+shape = SubResource("RectangleShape2D_oaue8")
+debug_color = Color(0.660203, 0.365998, 0.913073, 0.42)
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 2)
+shape = SubResource("RectangleShape2D_d1nyc")
