@@ -512,7 +512,7 @@ position = Vector2(-2, -20)
 [node name="hurtbox_left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_left"]
-position = Vector2(-48.25, 17.75)
+position = Vector2(-48, 17)
 shape = SubResource("RectangleShape2D_co53i")
 disabled = true
 
@@ -559,13 +559,15 @@ long_attack_state = NodePath("../long_attack_state")
 script = ExtResource("6_bgtvn")
 follow_state = NodePath("../follow_state")
 
-[node name="short_attack_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
+[node name="short_attack_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state", "turn_state")]
 script = ExtResource("7_ipbrq")
 follow_state = NodePath("../follow_state")
+turn_state = NodePath("../turning_state")
 
-[node name="long_attack_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
+[node name="long_attack_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state", "turn_state")]
 script = ExtResource("8_ywu8v")
 follow_state = NodePath("../follow_state")
+turn_state = NodePath("../turning_state")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/wake_up_state" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/turning_state" method="_on_animated_sprite_2d_animation_finished"]

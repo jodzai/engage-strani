@@ -4,6 +4,7 @@ extends State
 @onready var animated_sprite = $"../../AnimatedSprite2D"
 
 @export var follow_state: State
+@export var turn_state: State
 
 var parent: Boss
 var player: CharacterBody2D
@@ -30,8 +31,12 @@ func exit() -> void:
 
 func process_frame(_delta: float) -> State:
 	if attack_anim_ended:
+		var curr_dir = parent.global_position.direction_to(player.global_position)
+		curr_dir.y = 0
+		curr_dir = curr_dir.normalized()
+		if curr_dir.x * follow_state.start_dir.x < 0:
+			return turn_state
 		return follow_state
-		
 		
 	return null
 
