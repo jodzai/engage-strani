@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://cvoqg2idd018w"]
+[gd_scene load_steps=10 format=4 uid="uid://de6cok17gxqkb"]
 
+[ext_resource type="Script" uid="uid://72qxe378l84b" path="res://scripts/time_manager.gd" id="1_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://dbukp0ueo6nd0" path="res://assets/TileSets/Bricks_Front.png" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://blf8o7dh1lja1" path="res://scenes/player.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://omsrw1b3c47b" path="res://scenes/enemy.tscn" id="3_lnu2h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
@@ -149,3 +151,9 @@ offset_bottom = 588.0
 theme_override_fonts/font = SubResource("FontFile_yqjtg")
 text = "Stamina:
 "
+
+[node name="enemy" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(955, 133)
+
+[node name="TimeManager" type="Node" parent="."]
+script = ExtResource("1_lbhrr")
