@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://bksnopdgnvb40"]
+
+[ext_resource type="Script" uid="uid://dtv4f3vtk6uo1" path="res://scripts/boss_template.gd" id="1_ulsxb"]
+[ext_resource type="Texture2D" uid="uid://qpg4gacbmye0" path="res://icon.svg" id="1_unxn6"]
+[ext_resource type="Script" uid="uid://c475uftt03ipy" path="res://scripts/state_machine.gd" id="3_ycxlp"]
+[ext_resource type="Script" uid="uid://df6dxjymqaxge" path="res://scripts/wake_up_state.gd" id="4_ycxlp"]
+[ext_resource type="Script" uid="uid://b642csrynpclw" path="res://scripts/follow_state.gd" id="5_75cnn"]
+[ext_resource type="Script" uid="uid://cyf2r13aipqm8" path="res://scripts/turning_state.gd" id="6_bgtvn"]
+[ext_resource type="Script" uid="uid://dotalp4py7ub3" path="res://scripts/short_attack_state.gd" id="7_ipbrq"]
+[ext_resource type="Script" uid="uid://rikvf1cxcju1" path="res://scripts/long_attack_state.gd" id="8_ywu8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivn87"]
+size = Vector2(64, 64)
+
+[node name="Boss" type="CharacterBody2D"]
+script = ExtResource("1_ulsxb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_unxn6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ivn87")
+
+[node name="wake_up_timer" type="Timer" parent="."]
+wait_time = 1.375
+one_shot = true
+
+[node name="attack_start_timer" type="Timer" parent="."]
+
+[node name="attack_len_timer" type="Timer" parent="."]
+
+[node name="turning_timer" type="Timer" parent="."]
+wait_time = 0.383
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -58.0
+offset_right = 21.0
+offset_bottom = -35.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="State_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_ycxlp")
+starting_state = NodePath("wake_up_state")
+
+[node name="wake_up_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
+script = ExtResource("4_ycxlp")
+follow_state = NodePath("../follow_state")
+
+[node name="follow_state" type="Node" parent="State_machine" node_paths=PackedStringArray("turning_state", "short_attack_state", "long_attack_state")]
+script = ExtResource("5_75cnn")
+turning_state = NodePath("../turning_state")
+short_attack_state = NodePath("../short_attack_state")
+long_attack_state = NodePath("../long_attack_state")
+
+[node name="turning_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
+script = ExtResource("6_bgtvn")
+follow_state = NodePath("../follow_state")
+
+[node name="short_attack_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
+script = ExtResource("7_ipbrq")
+follow_state = NodePath("../follow_state")
+
+[node name="long_attack_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
+script = ExtResource("8_ywu8v")
+follow_state = NodePath("../follow_state")
+
+[connection signal="timeout" from="wake_up_timer" to="State_machine/wake_up_state" method="_on_timer_timeout"]
+[connection signal="timeout" from="attack_start_timer" to="State_machine/follow_state" method="_on_attack_start_timer_timeout"]
+[connection signal="timeout" from="attack_len_timer" to="State_machine/short_attack_state" method="_on_attack_len_timer_timeout"]
+[connection signal="timeout" from="attack_len_timer" to="State_machine/long_attack_state" method="_on_attack_len_timer_timeout"]
+[connection signal="timeout" from="turning_timer" to="State_machine/turning_state" method="_on_turning_timer_timeout"]
