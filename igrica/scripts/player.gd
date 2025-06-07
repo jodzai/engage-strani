@@ -1,8 +1,9 @@
-extends CharacterBody2D
-
+class_name Player 
+extends RewindableCharacter
 
 const SPEED = 200
-const JUMP_VELOCITY = -300.0
+const JUMP_VELOCITY = -400.0
+
 @onready var sprite: AnimatedSprite2D = $sprite
 @onready var stamina_bar: ProgressBar = $"../CanvasLayer/stamina_bar"
 @onready var time_manager: Node = $"../TimeManager"
@@ -22,7 +23,16 @@ var stamina : int = 100
 @onready var freeze_duration_timer: Timer = $freeze_duration_timer
 @onready var freeze_cooldown: Timer = $freeze_cooldown
 var freeze_ready=true
+
+@onready var game: GameMain = $".."
+
+@onready var aura: Area2D = $aura
+@onready var collision: CollisionShape2D = $collision
+
 func _physics_process(delta: float) -> void:
+	
+	var bodies: Array[Node2D] = aura.get_overlapping_bodies()
+	if !bodies.is_empty(): hit(bodies)
 	
 	if not input_enabled:
 		return
@@ -40,6 +50,11 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("dash"):
 		dash()
+		
+	if Input.is_action_just_pressed("test"):
+		game.snapshot.begin_snapshot()
+	if Input.is_action_just_pressed("test 2"):
+		game.snapshot.pre_rewind()
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -60,10 +75,21 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("freeze") and not is_dashing:
 		start_freeze_sequence()
-		
 	
 	move_and_slide()
-	
+
+func disable_input() -> void:
+	input_enabled = false
+
+func enable_input() -> void:
+	input_enabled = true
+
+func disable_vulnerability() -> void:
+	vulnerable = false
+
+func enable_vulnerability() -> void:
+	vulnerable = true
+
 func dash():
 	if not is_dashing and stamina>=30:
 		animation_lock = true
@@ -76,8 +102,6 @@ func dash():
 		vulnerable=false
 		is_dashing=true
 		dash_timer.start(dash_time)
-		
-	
 
 func start_freeze_sequence():
 	if freeze_ready:
@@ -98,11 +122,10 @@ func _on_dash_timer_timeout() -> void:
 	animation_lock = false
 	sekundara.start(stamina_refresh)
 
-	
 func _process(delta: float) -> void:
 	stamina_bar.value=stamina
 	
-		
+
 func _ready() -> void:
 	sekundara.start(stamina_refresh)
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -110,8 +133,6 @@ func _ready() -> void:
 func _on_sekundara_timeout() -> void:
 	if(stamina<100):
 		stamina+=5 
-		
-
 
 func _on_freeze_timer_timeout() -> void:
 	input_enabled = true
@@ -122,7 +143,16 @@ func _on_freeze_timer_timeout() -> void:
 func _on_freeze_duration_timer_timeout() -> void:
 	get_tree().paused=false
 
-
 func _on_freeze_cooldown_timeout() -> void:
 	freeze_ready=true
 	freeze_cd_label.visible=false
+
+func pre_rewind() -> void:
+	collision.disabled = true
+
+func end_rewind() -> void:
+	collision.disabled = false 
+
+func hit(nodes: Array[Node2D]) -> void:
+	for node in nodes:
+		print("hit " + node.name)
