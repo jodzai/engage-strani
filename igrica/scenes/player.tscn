@@ -1,8 +1,8 @@
-[gd_scene load_steps=78 format=3 uid="uid://blf8o7dh1lja1"]
+[gd_scene load_steps=79 format=3 uid="uid://blf8o7dh1lja1"]
 
 [ext_resource type="Script" uid="uid://ck83kq37x6xdh" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://b40lvcjv3h8m6" path="res://assets/Player_Sprites/Mage_Idle.png" id="2_dqkch"]
-[ext_resource type="Texture2D" uid="uid://bii7dqwmf0eyg" path="res://assets/Player_Sprites/Mage_Dash.png" id="2_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://cxbawglmg47xr" path="res://assets/Player_Sprites/Mage_Dash.png" id="2_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://v0krrtplrs83" path="res://assets/Player_Sprites/Mage_Run.png" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://brasv2x3ywl5" path="res://assets/Player_Sprites/Mage_Attack.png" id="3_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://ces5woqmebp6y" path="res://assets/Player_Sprites/Mage_Death.png" id="3_ur7pv"]
@@ -518,21 +518,29 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gl8cc"]
 size = Vector2(15, 31)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ur7pv"]
+size = Vector2(14, 31)
+
 [node name="player" type="CharacterBody2D"]
 z_index = 1
 script = ExtResource("1_qhqgy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wnwbv")
-animation = &"freeze_anim"
+animation = &"jump_start"
 autoplay = "idle"
-frame = 5
+frame = 2
 frame_progress = 1.0
 
 [node name="collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(3, 4)
 shape = SubResource("RectangleShape2D_gl8cc")
+
+[node name="aura" type="Area2D" parent="."]
+
+[node name="area_collision" type="CollisionShape2D" parent="aura"]
+position = Vector2(3, 4)
+shape = SubResource("RectangleShape2D_ur7pv")
 
 [node name="camera" type="Camera2D" parent="."]
 zoom = Vector2(3.065, 3.065)

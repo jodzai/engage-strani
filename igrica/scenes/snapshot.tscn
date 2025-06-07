@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2c1c0dy37di3"]
+
+[ext_resource type="Script" uid="uid://b3hjwbnuibico" path="res://scripts/snapshot.gd" id="1_y4r4x"]
+
+[node name="Snapshot" type="Node"]
+script = ExtResource("1_y4r4x")
+
+[node name="rewind_time" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
