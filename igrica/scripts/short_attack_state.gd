@@ -1,19 +1,33 @@
 extends State
 
 @onready var attack_start_timer = $"../../attack_start_timer"
-@onready var attack_len_timer = $"../../attack_len_timer"
+@onready var animated_sprite = $"../../AnimatedSprite2D"
+@onready var hurtbox_left = $"../../hurtbox_left"
+@onready var collision_shape_left = $"../../hurtbox_left/CollisionShape2D"
+
+@onready var hurtbox_right = $"../../hurtbox_right"
+@onready var collision_shape_right = $"../../hurtbox_right/CollisionShape2D"
+
 
 @export var follow_state: State
 
 var parent: Boss
 var player: CharacterBody2D
 
-var attack_len_timer_ended = false
+var attack_anim_ended = false
+var attack_hit = false
 
 func enter() -> void:
 	$"../../Label".text = "SHORT ATTACK!!!"
-	attack_len_timer_ended = false
-	attack_len_timer.start()
+	
+	animated_sprite.play("short_attack")
+	if follow_state.start_dir.x > 0:
+		animated_sprite.flip_h = true
+	else:
+		animated_sprite.flip_h = false
+	
+	attack_hit = false
+	attack_anim_ended = false
 	parent.velocity = Vector2.ZERO
 
 func exit() -> void:
@@ -21,10 +35,23 @@ func exit() -> void:
 	attack_start_timer.start(rand)
 
 func process_frame(_delta: float) -> State:
-	if attack_len_timer_ended:
+	if attack_anim_ended:
 		return follow_state
+	#Ovde se menjaju frejmovi na kojima se udaraju
+	if animated_sprite.frame > 4 and animated_sprite.frame < 10:
+		if follow_state.start_dir.x > 0:
+			collision_shape_right.disabled = false
+			if hurtbox_right.get_overlapping_bodies():
+				attack_hit = true
+		else:
+			collision_shape_left.disabled = false
+			if hurtbox_left.get_overlapping_bodies():
+				attack_hit = true
+	else: 
+		collision_shape_left.disabled = true
+		collision_shape_right.disabled = true
 	return null
 
 
-func _on_attack_len_timer_timeout():
-	attack_len_timer_ended = true
+func _on_animated_sprite_2d_animation_finished():
+	attack_anim_ended = true

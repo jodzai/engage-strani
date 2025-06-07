@@ -1,6 +1,7 @@
 extends State
 
 @onready var attack_start_timer = $"../../attack_start_timer"
+@onready var animated_sprite = $"../../AnimatedSprite2D"
 
 @export var turning_state: State
 @export var short_attack_state: State
@@ -20,6 +21,13 @@ func enter() -> void:
 	start_dir = player.global_position - parent.global_position
 	start_dir.y = 0
 	start_dir = start_dir.normalized()
+	
+	animated_sprite.play("walking")
+	if start_dir.x > 0:
+		animated_sprite.flip_h = true
+	else:
+		animated_sprite.flip_h = false
+	
 	attack_start_timer_ended = false
 
 func process_physics(delta:float) -> State:

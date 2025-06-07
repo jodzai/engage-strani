@@ -1,25 +1,30 @@
 extends State
 
-@onready var turning_timer = $"../../turning_timer"
+@onready var animated_sprite = $"../../AnimatedSprite2D"
 
 @export var follow_state: State
 
 var parent: Boss
 var player: CharacterBody2D
 
-var turn_timer_ended: bool = false
+var turn_anim_ended: bool = false
 
 func enter() -> void:
 	$"../../Label".text = "Turning"
 	parent.velocity = Vector2.ZERO
-	turning_timer.start()
-	turn_timer_ended = false
+	animated_sprite.play("turning")
+	if follow_state.start_dir.x > 0:
+		animated_sprite.flip_h = true
+	else:
+		animated_sprite.flip_h = false
+	
+	turn_anim_ended = false
 
 func process_frame(delta: float) -> State:
-	if turn_timer_ended:
+	if turn_anim_ended:
 		return follow_state
 	return null
 
 
-func _on_turning_timer_timeout():
-	turn_timer_ended = true
+func _on_animated_sprite_2d_animation_finished():
+	turn_anim_ended = true
