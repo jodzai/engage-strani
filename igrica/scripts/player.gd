@@ -19,7 +19,6 @@ var stamina_refresh=0.5
 @onready var dash_timer: Timer = $dash_timer
 var animation_lock : bool = false
 var stamina : int = 100
-var is_freeze=false
 @onready var freeze_duration_timer: Timer = $freeze_duration_timer
 @onready var freeze_cooldown: Timer = $freeze_cooldown
 var freeze_ready=true
@@ -81,17 +80,16 @@ func dash():
 	
 
 func start_freeze_sequence():
-		if freeze_ready:
-			freeze_ready=false
-			freeze_cooldown.start(12)
-			freeze_cd_label.visible=true
-			freeze_cd_label.text="12"
-			input_enabled = false 
-			is_freeze = true
-			animation_lock = true
-			sprite.play("freeze_anim")
-			freeze_timer.start(float(sprite.sprite_frames.get_frame_count(sprite.animation)) /
-			sprite.sprite_frames.get_animation_speed(sprite.animation))
+	if freeze_ready:
+		freeze_ready=false
+		freeze_cooldown.start(12)
+		freeze_cd_label.visible=true
+		freeze_cd_label.text="12"
+		input_enabled = false
+		animation_lock = true
+		sprite.play("freeze_anim")
+		freeze_timer.start(float(sprite.sprite_frames.get_frame_count(sprite.animation)) /
+		sprite.sprite_frames.get_animation_speed(sprite.animation))
 
 		
 func _on_dash_timer_timeout() -> void:
