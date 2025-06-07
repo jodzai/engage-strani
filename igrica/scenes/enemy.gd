@@ -6,7 +6,7 @@ func _physics_process(delta: float) -> void:
 	velocity.x=100*direction
 	
 	move_and_slide()
-
+	
 
 
 

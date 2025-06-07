@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -300.0
 @onready var stamina_bar: ProgressBar = $"../CanvasLayer/stamina_bar"
 @onready var time_manager: Node = $"../TimeManager"
 
+
 var vulnerable=true
 var is_dashing=false
 var dash_time = 0.5
@@ -54,7 +55,8 @@ func _physics_process(delta: float) -> void:
 		sprite.flip_h = true
 		
 	if Input.is_action_just_pressed("freeze"):
-		time_manager.freeze_timed()
+		get_tree().paused=!get_tree().paused
+		
 	
 	move_and_slide()
 	
@@ -89,6 +91,7 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	sekundara.start(stamina_refresh)
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 func _on_sekundara_timeout() -> void:
 	if(stamina<100):
