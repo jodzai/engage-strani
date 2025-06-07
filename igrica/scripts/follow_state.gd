@@ -5,6 +5,8 @@ extends State
 
 @export var short_attack_state: State
 @export var long_attack_state: State
+@export var transition: State
+@export var big_attack_state: State
 
 var parent: Boss
 var player: CharacterBody2D
@@ -34,6 +36,9 @@ func process_physics(delta:float) -> State:
 	curr_dir.y = 0
 	curr_dir = curr_dir.normalized()
 	
+	if parent.second_faze:
+		return transition
+	
 	if curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:
@@ -51,9 +56,22 @@ func process_physics(delta:float) -> State:
 		if parent.global_position.distance_to(player.global_position) < parent.attack_change_len:
 			return short_attack_state
 		else:
-			return long_attack_state
+			if parent.big_attack_able:
+				var rand = randf()
+				print(rand)
+				if rand > 0.5:
+					return long_attack_state
+				else:
+					return big_attack_state
+			else:
+				return long_attack_state
 	
-	parent.velocity = curr_dir.normalized() * parent.speed * delta * 100
+	#dodajem deo koji će da uspori bossa tako da ne bi poludeo oko playera
+	#min distanca pomeranja
+	if parent.global_position.distance_squared_to(player.global_position) > 50*50:
+		parent.velocity = curr_dir.normalized() * parent.speed * delta * 100
+	else:
+		parent.velocity -= parent.velocity*0.2
 	return null
 
 

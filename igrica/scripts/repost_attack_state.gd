@@ -9,6 +9,7 @@ extends State
 
 @export var follow_state: State
 @export var idle_state: State
+@export var transition: State
 
 var parent: Boss
 var player: CharacterBody2D
@@ -30,11 +31,13 @@ func enter() -> void:
 	parent.velocity = Vector2.ZERO
 
 func exit() -> void:
-
-	var rand = randf_range(1.0, 3.0)
+	var rand = randf_range(parent.attack_timer_min, parent.attack_timer_max)
 	attack_start_timer.start(rand)
 
 func process_frame(_delta: float) -> State:
+	if parent.second_faze:
+		return transition
+	
 	if attack_anim_ended:
 		return idle_state
 	

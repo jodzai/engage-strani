@@ -12,8 +12,8 @@ extends State
 
 @export var follow_state: State
 @export var idle_state: State
-
-@export var repost_state:State
+@export var transition: State
+@export var repost_state: State
 
 var parent: Boss
 var player: CharacterBody2D
@@ -32,14 +32,17 @@ func enter() -> void:
 	
 	attack_hit = false
 	attack_anim_ended = false
-	parent.velocity = Vector2.ZERO
 
 func exit() -> void:
 	if !attack_hit:
-		var rand = randf_range(1.0, 3.0)
+		var rand = randf_range(parent.attack_timer_min, parent.attack_timer_max)
 		attack_start_timer.start(rand)
 
 func process_frame(_delta: float) -> State:
+	if parent.second_faze:
+		return transition
+	
+	parent.velocity -= parent.velocity * 0.2
 	if attack_anim_ended:
 		if attack_hit:
 			return repost_state
@@ -58,7 +61,6 @@ func process_frame(_delta: float) -> State:
 		collision_shape_left.disabled = true
 		collision_shape_right.disabled = true
 	return null
-
 
 func _on_animated_sprite_2d_animation_finished():
 	attack_anim_ended = true
