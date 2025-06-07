@@ -2,18 +2,13 @@ extends State
 
 @onready var attack_start_timer = $"../../attack_start_timer"
 @onready var animated_sprite = $"../../AnimatedSprite2D"
-
 @onready var hurtbox_left = $"../../hurtbox_left"
 @onready var collision_shape_left = $"../../hurtbox_left/CollisionShape2D"
-
 @onready var hurtbox_right = $"../../hurtbox_right"
 @onready var collision_shape_right = $"../../hurtbox_right/CollisionShape2D"
 
-
 @export var follow_state: State
 @export var idle_state: State
-
-@export var repost_state:State
 
 var parent: Boss
 var player: CharacterBody2D
@@ -22,7 +17,7 @@ var attack_anim_ended = false
 var attack_hit = false
 
 func enter() -> void:
-	$"../../Label".text = "SHORT ATTACK!!!"
+	$"../../Label".text = "AGAIN!!!"
 	
 	animated_sprite.play("short_attack")
 	if follow_state.curr_dir.x > 0:
@@ -30,21 +25,19 @@ func enter() -> void:
 	else:
 		animated_sprite.flip_h = false
 	
-	attack_hit = false
 	attack_anim_ended = false
+	attack_hit = false
 	parent.velocity = Vector2.ZERO
 
 func exit() -> void:
-	if !attack_hit:
-		var rand = randf_range(1.0, 3.0)
-		attack_start_timer.start(rand)
+
+	var rand = randf_range(1.0, 3.0)
+	attack_start_timer.start(rand)
 
 func process_frame(_delta: float) -> State:
 	if attack_anim_ended:
-		if attack_hit:
-			return repost_state
 		return idle_state
-	#Ovde se menjaju frejmovi na kojima se udaraju
+	
 	if animated_sprite.frame > 4 and animated_sprite.frame < 10:
 		if follow_state.curr_dir.x > 0:
 			collision_shape_right.disabled = false
@@ -58,7 +51,6 @@ func process_frame(_delta: float) -> State:
 		collision_shape_left.disabled = true
 		collision_shape_right.disabled = true
 	return null
-
 
 func _on_animated_sprite_2d_animation_finished():
 	attack_anim_ended = true

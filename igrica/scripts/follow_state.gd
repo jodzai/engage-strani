@@ -3,7 +3,6 @@ extends State
 @onready var attack_start_timer = $"../../attack_start_timer"
 @onready var animated_sprite = $"../../AnimatedSprite2D"
 
-@export var turning_state: State
 @export var short_attack_state: State
 @export var long_attack_state: State
 
@@ -35,10 +34,12 @@ func process_physics(delta:float) -> State:
 	curr_dir.y = 0
 	curr_dir = curr_dir.normalized()
 	
+	if curr_dir.x > 0:
+		animated_sprite.flip_h = true
+	else:
+		animated_sprite.flip_h = false
 	#Ako biva preskočen onda treba da se okrene
-	if curr_dir.x * start_dir.x < 0:
-		return turning_state
-	
+	#nema veze :(
 	#Prvi put kad anailazi na igrača biće šort atack
 	if parent.global_position.distance_to(player.global_position) < parent.attack_change_len and !player_entered_zone:
 		player_entered_zone = true
