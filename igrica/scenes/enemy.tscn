@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtl1o6u1inyiq"]
+[gd_scene load_steps=4 format=3 uid="uid://dtl1o6u1inyiq"]
 
 [ext_resource type="Texture2D" uid="uid://qpg4gacbmye0" path="res://icon.svg" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://c8hw0cs3ypxvo" path="res://scripts/enemy.gd" id="1_md0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+size = Vector2(38, 36)
 
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_md0e3")
@@ -10,6 +13,9 @@ script = ExtResource("1_md0e3")
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(0.304688, 0.294922)
 texture = ExtResource("1_7p1mj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_md0e3")
 
 [node name="lr_timer" type="Timer" parent="."]
 one_shot = true

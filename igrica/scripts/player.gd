@@ -26,7 +26,13 @@ var freeze_ready=true
 
 @onready var game: GameMain = $".."
 
+@onready var aura: Area2D = $aura
+@onready var collision: CollisionShape2D = $collision
+
 func _physics_process(delta: float) -> void:
+	
+	var bodies: Array[Node2D] = aura.get_overlapping_bodies()
+	if !bodies.is_empty(): hit(bodies)
 	
 	if not input_enabled:
 		return
@@ -119,7 +125,7 @@ func _on_dash_timer_timeout() -> void:
 func _process(delta: float) -> void:
 	stamina_bar.value=stamina
 	
-		
+
 func _ready() -> void:
 	sekundara.start(stamina_refresh)
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -140,3 +146,13 @@ func _on_freeze_duration_timer_timeout() -> void:
 func _on_freeze_cooldown_timeout() -> void:
 	freeze_ready=true
 	freeze_cd_label.visible=false
+
+func pre_rewind() -> void:
+	collision.disabled = true
+
+func end_rewind() -> void:
+	collision.disabled = false 
+
+func hit(nodes: Array[Node2D]) -> void:
+	for node in nodes:
+		print("hit " + node.name)

@@ -6,6 +6,8 @@ var direction=1
 var timer_value: float = 0
 var old_direction: int = 1
 
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 @onready var lr_timer: Timer = $lr_timer
 
 func _physics_process(delta: float) -> void:
