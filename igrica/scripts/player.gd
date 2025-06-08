@@ -1,7 +1,7 @@
 class_name Player 
 extends RewindableCharacter
 
-const SPEED = 200
+const SPEED = 100
 const JUMP_VELOCITY = -400.0
 
 @onready var sprite: AnimatedSprite2D = $sprite
@@ -182,6 +182,7 @@ func _on_freeze_cooldown_timeout() -> void:
 
 func pre_rewind() -> void:
 	collision.disabled = true
+	sprite.play("slash")
 
 func end_rewind() -> void:
 	collision.disabled = false 
