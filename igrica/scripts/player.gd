@@ -5,6 +5,11 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 @onready var sprite: AnimatedSprite2D = $sprite
 
+@onready var stamina_bar: ProgressBar = $"../CanvasLayer/stamina_bar"
+@onready var freeze_timer: Timer = $freeze_timer
+@onready var freeze_cd_label: Label = $"../CanvasLayer/freeze_cd_label"
+
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

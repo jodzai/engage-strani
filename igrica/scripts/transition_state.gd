@@ -4,8 +4,8 @@ extends State
 
 @export var follow_state: State
 
-var parent
-var player
+var parent: Boss
+var player: CharacterBody2D
 
 var transition_anim_ended = false
 

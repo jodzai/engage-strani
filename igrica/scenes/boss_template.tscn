@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://dcy81ij07cufk" path="res://scripts/repost_attack_state.gd" id="12_n1u2x"]
 [ext_resource type="Script" uid="uid://dy56gb4gsc2gv" path="res://scripts/big_attack.gd" id="14_n1u2x"]
 [ext_resource type="Script" uid="uid://bws6ut8jubtph" path="res://idle_state.gd" id="14_txrfv"]
-[ext_resource type="Script" uid="uid://bp5eq57p6etb8" path="res://scenes/transition_state.gd" id="15_txrfv"]
+[ext_resource type="Script" uid="uid://bp5eq57p6etb8" path="res://scripts/transition_state.gd" id="15_txrfv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co53i"]
 size = Vector2(51.5, 29.5)
