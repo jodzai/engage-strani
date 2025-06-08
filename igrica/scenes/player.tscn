@@ -534,14 +534,6 @@ autoplay = "idle"
 position = Vector2(3, 4)
 shape = SubResource("RectangleShape2D_gl8cc")
 
-[node name="Camera2D" type="Camera2D" parent="." groups=["Player"]]
-zoom = Vector2(2.49, 2.49)
-
-[node name="Invic_timer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="timeout" from="Invic_timer" to="." method="_on_invic_timer_timeout"]
-
 [node name="aura" type="Area2D" parent="."]
 
 [node name="area_collision" type="CollisionShape2D" parent="aura"]
@@ -576,4 +568,3 @@ one_shot = true
 [connection signal="timeout" from="freeze_duration_timer" to="." method="_on_freeze_duration_timer_timeout"]
 [connection signal="timeout" from="freeze_cooldown" to="." method="_on_freeze_cooldown_timeout"]
 [connection signal="timeout" from="rewind_timer" to="." method="_on_rewind_timer_timeout"]
-
