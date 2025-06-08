@@ -5,11 +5,9 @@ const SPEED = 100
 const JUMP_VELOCITY = -400.0
 
 @onready var sprite: AnimatedSprite2D = $sprite
-@onready var stamina_bar: ProgressBar = $"../CanvasLayer/stamina_bar"
+@onready var stamina_bar: ProgressBar = $"../CanvasLayer/Panel/stamina_bar"
 @onready var freeze_timer: Timer = $freeze_timer
-@onready var freeze_cd_label: Label = $"../CanvasLayer/freeze_cd_label"
 @onready var rewind_timer: Timer = $rewind_timer
-@onready var rewind_label: Label = $"../CanvasLayer/rewind_label"
 const SHADOW_SPRITE = preload("res://scenes/shadow_sprite.tscn")
 var shadow_instance: Node2D = null
 
@@ -83,10 +81,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	
-	rewind_label.text="%.1f" % rewind_timer.time_left
-	if rewind_timer.time_left==0:
-		rewind_label.visible=false
-	else: rewind_label.visible=true
+	
 		
 		
 	if is_dashing:
@@ -94,7 +89,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x=dash_speed
 		elif sprite.flip_h:
 			velocity.x=-dash_speed
-	freeze_cd_label.text = "%.1f" % freeze_cooldown.time_left
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_dashing:
 		velocity.y = JUMP_VELOCITY
 		jump_sfx.play()
@@ -171,8 +165,6 @@ func start_freeze_sequence():
 	if freeze_ready:
 		freeze_ready=false
 		freeze_cooldown.start(12)
-		freeze_cd_label.visible=true
-		freeze_cd_label.text="12"
 		input_enabled = false
 		sprite.play("freeze_anim")
 		freeze_timer.start(float(sprite.sprite_frames.get_frame_count(sprite.animation)) /
@@ -200,7 +192,6 @@ func _on_freeze_duration_timer_timeout() -> void:
 
 func _on_freeze_cooldown_timeout() -> void:
 	freeze_ready=true
-	freeze_cd_label.visible=false
 
 func pre_rewind() -> void:
 	collision.disabled = true

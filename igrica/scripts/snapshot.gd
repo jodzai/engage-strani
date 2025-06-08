@@ -38,7 +38,6 @@ func pre_rewind() -> void:
 	
 	player.disable_vulnerability()
 	player.disable_input()
-	
 	player.snapshot_ability.pre_rewind()
 	boss.snapshot_ability.pre_rewind()
 	

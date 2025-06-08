@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="igrica"
-run/main_scene="uid://d55jmirscwnu"
+run/main_scene="uid://broxtxrcw2njp"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

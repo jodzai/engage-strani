@@ -5,12 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://blf8o7dh1lja1" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://17sraeh0a71t" path="res://assets/TileSets/Background_Bricks.png" id="3_p57ef"]
 [ext_resource type="PackedScene" uid="uid://b2c1c0dy37di3" path="res://scenes/snapshot.tscn" id="5_iywne"]
-[ext_resource type="Texture2D" uid="uid://birek3pxdgg8m" path="res://assets/UI images/hourglass.png" id="5_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://c5afvh5x1jnrp" path="res://assets/UI images/hourglass.png" id="5_u5sy4"]
 [ext_resource type="Script" uid="uid://cxux0wd6k75en" path="res://scripts/canvas_layer.gd" id="5_vtaks"]
-[ext_resource type="Texture2D" uid="uid://cal2xhiiu6c5w" path="res://assets/UI images/slash.png" id="6_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://bw3pw8bcfuy6m" path="res://assets/UI images/slash.png" id="6_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ds8c2hfinc1vu" path="res://scenes/boss_template.tscn" id="6_p57ef"]
-[ext_resource type="Texture2D" uid="uid://by1esq1w62hqm" path="res://assets/UI images/portal.png" id="7_vtaks"]
-[ext_resource type="AudioStream" uid="uid://dv1vr4k4i3u52" path="res://assets/Music/Boss First Faze.wav" id="11_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://chs07kwvs8jig" path="res://assets/UI images/portal.png" id="7_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
@@ -110,7 +109,7 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_yqjtg")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vtaks"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5sy4"]
 texture = ExtResource("3_p57ef")
 4:0/size_in_atlas = Vector2i(2, 2)
 4:0/0 = 0
@@ -135,7 +134,7 @@ texture = ExtResource("3_p57ef")
 
 [sub_resource type="TileSet" id="TileSet_gee14"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_vtaks")
+sources/0 = SubResource("TileSetAtlasSource_u5sy4")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
 texture = ExtResource("3_p57ef")
@@ -194,56 +193,41 @@ shape = SubResource("WorldBoundaryShape2D_lnu2h")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("5_vtaks")
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-self_modulate = Color(1, 1, 1, 0.141176)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -468.0
-offset_top = 9.0
-offset_right = -8.0
-offset_bottom = 140.0
-grow_horizontal = 0
-
-[node name="stamina_bar" type="ProgressBar" parent="CanvasLayer/Panel"]
-modulate = Color(0.184314, 0.839216, 0.376471, 1)
-layout_mode = 1
+[node name="stamina_bar" type="ProgressBar" parent="CanvasLayer"]
+self_modulate = Color(0, 0, 1, 1)
 anchors_preset = -1
 anchor_left = 0.0312499
 anchor_top = -0.256173
 anchor_right = 0.0607638
 anchor_bottom = -0.25463
-offset_left = 22.8438
-offset_top = 125.559
-offset_right = 74.8437
-offset_bottom = 152.559
+offset_left = 842.0
+offset_top = 284.0
+offset_right = 894.0
+offset_bottom = 311.0
 rotation = -1.56073
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
-[node name="portal" type="TextureRect" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_left = 217.0
-offset_top = 14.0
-offset_right = 326.0
-offset_bottom = 103.0
+[node name="portal" type="TextureRect" parent="CanvasLayer"]
+offset_left = 923.0
+offset_top = 30.0
+offset_right = 1032.0
+offset_bottom = 124.0
 texture = ExtResource("7_vtaks")
 expand_mode = 1
 
-[node name="slash" type="TextureRect" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_left = 345.0
-offset_top = 14.0
-offset_right = 450.0
-offset_bottom = 103.0
+[node name="slash" type="TextureRect" parent="CanvasLayer"]
+offset_left = 1012.0
+offset_right = 1130.0
+offset_bottom = 157.0
 texture = ExtResource("6_0tnpc")
 expand_mode = 1
 
-[node name="hourglass" type="TextureRect" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_left = 92.0
-offset_top = 15.0
-offset_right = 201.0
-offset_bottom = 102.0
+[node name="hourglass" type="TextureRect" parent="CanvasLayer"]
+offset_left = 1015.0
+offset_top = 137.0
+offset_right = 1138.0
+offset_bottom = 248.0
 texture = ExtResource("5_u5sy4")
 expand_mode = 1
 
@@ -252,10 +236,3 @@ expand_mode = 1
 [node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_p57ef")]
 position = Vector2(1758, 287)
 player = NodePath("../player")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_kvpfn")
-volume_db = 6.933
-autoplay = true
-max_distance = 4096.0
-attenuation = 0.0525561
