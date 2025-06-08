@@ -4,6 +4,10 @@ extends RewindableCharacter
 const SPEED = 200
 const JUMP_VELOCITY = -400.0
 
+var health = 3
+
+var damage_taken = false
+
 @onready var sprite: AnimatedSprite2D = $sprite
 @onready var stamina_bar: ProgressBar = $"../CanvasLayer/stamina_bar"
 @onready var freeze_timer: Timer = $freeze_timer
@@ -29,8 +33,15 @@ var freeze_ready=true
 var died=false
 @onready var game: GameMain = $".."
 
+
+@onready var stamina_bar: ProgressBar = $"../CanvasLayer/stamina_bar"
+@onready var freeze_timer: Timer = $freeze_timer
+@onready var freeze_cd_label: Label = $"../CanvasLayer/freeze_cd_label"
+@onready var invic_timer = $Invic_timer
+
 @onready var aura: Area2D = $aura
 @onready var collision: CollisionShape2D = $collision
+
 
 func _physics_process(delta: float) -> void:
 	
@@ -116,6 +127,20 @@ func _physics_process(delta: float) -> void:
 		health-=1
 		print("health " + str(health))
 	move_and_slide()
+
+
+func take_damage():
+	if !damage_taken:
+		health -= 1
+		damage_taken = true
+		invic_timer.start()
+		print("HIT!!")
+
+
+
+func _on_invic_timer_timeout():
+	damage_taken = false
+
 	
 func disable_input() -> void:
 	input_enabled = false

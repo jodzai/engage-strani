@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8nthsdnjkpo5"
-uid="uid://17sraeh0a71t"
-path="res://.godot/imported/Background_Bricks.png-a00ae619e252848aa9100f2408c7f47c.ctex"
+uid="uid://cgtf8cxna6rds"
+path="res://.godot/imported/Sprite-0003.png-5f9f1627b8a8656e2e62c665ceea2db4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/TileSets/Background_Bricks.png"
-dest_files=["res://.godot/imported/Background_Bricks.png-a00ae619e252848aa9100f2408c7f47c.ctex"]
+source_file="res://assets/Boss_anim_test/Sprite-0003.png"
+dest_files=["res://.godot/imported/Sprite-0003.png-5f9f1627b8a8656e2e62c665ceea2db4.ctex"]
 
 [params]
 

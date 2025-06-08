@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8nthsdnjkpo5"
-uid="uid://17sraeh0a71t"
-path="res://.godot/imported/Background_Bricks.png-a00ae619e252848aa9100f2408c7f47c.ctex"
+uid="uid://daykvy1kvl82q"
+path="res://.godot/imported/lightning.png-13bfc2498974b995db34cd0c6e08da5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/TileSets/Background_Bricks.png"
-dest_files=["res://.godot/imported/Background_Bricks.png-a00ae619e252848aa9100f2408c7f47c.ctex"]
+source_file="res://assets/TileSets/lightning.png"
+dest_files=["res://.godot/imported/lightning.png-13bfc2498974b995db34cd0c6e08da5c.ctex"]
 
 [params]
 
