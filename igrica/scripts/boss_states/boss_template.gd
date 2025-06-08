@@ -5,8 +5,8 @@ extends RewindableCharacter
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var player: CharacterBody2D
-@export var speed = 75
-@export var attack_change_len = 80.0
+@export var speed = 2
+@export var attack_change_len = 80
 @export var health: int = 3
 
 var old_state: State = null

@@ -9,6 +9,12 @@ extends State
 @onready var hurtbox_right = $"../../hurtbox_right"
 @onready var collision_shape_right = $"../../hurtbox_right/CollisionShape2D"
 
+@onready var hurtbox_left_demon = $"../../hurtbox_left_demon"
+@onready var collision_shape_left_demon = $"../../hurtbox_left_demon/CollisionShape2D"
+
+@onready var hurtbox_right_demon = $"../../hurtbox_right_demon"
+@onready var collision_shape_right_demon = $"../../hurtbox_right_demon/CollisionShape2D"
+
 
 @export var follow_state: State
 @export var idle_state: State
@@ -27,9 +33,12 @@ const SWING = preload("res://assets/Music/Swing.wav")
 
 func enter() -> void:
 	$"../../Label".text = "SHORT ATTACK!!!"
-	audio_stream_player_10.stream = SWING
-	audio_stream_player_10.play()
-	animated_sprite.play("short_attack")
+
+	if parent.big_attack_able:
+		animated_sprite.play("demon_short_attack")
+	else:
+		animated_sprite.play("short_attack")
+
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:
@@ -53,26 +62,48 @@ func process_frame(_delta: float) -> State:
 			return repost_state
 		return idle_state
 	#Ovde se menjaju frejmovi na kojima se udaraju
-	if animated_sprite.frame == 6:
-		if follow_state.curr_dir.x > 0:
-			collision_shape_right.disabled = false
-			var targets = hurtbox_right.get_overlapping_bodies()
-			if targets:
-				attack_hit = true
-				for target in targets:
-					if target.has_method("take_damage"):
-						target.take_damage()
-		else:
-			collision_shape_left.disabled = false
-			var targets = hurtbox_left.get_overlapping_bodies()
-			if targets:
-				attack_hit = true
-				for target in targets:
-					if target.has_method("take_damage"):
-						target.take_damage()
-	else: 
-		collision_shape_left.disabled = true
-		collision_shape_right.disabled = true
+	if parent.big_attack_able:
+		if animated_sprite.frame == 3:
+			if follow_state.curr_dir.x > 0:
+				collision_shape_right_demon.disabled = false
+				var targets = hurtbox_right_demon.get_overlapping_bodies()
+				if targets:
+					attack_hit = true
+					for target in targets:
+						if target.has_method("take_damage"):
+							target.take_damage()
+			else:
+				collision_shape_left_demon.disabled = false
+				var targets = hurtbox_left_demon.get_overlapping_bodies()
+				if targets:
+					attack_hit = true
+					for target in targets:
+						if target.has_method("take_damage"):
+							target.take_damage()
+		else: 
+			collision_shape_left_demon.disabled = true
+			collision_shape_right_demon.disabled = true
+	else:
+		if animated_sprite.frame == 6:
+			if follow_state.curr_dir.x > 0:
+				collision_shape_right.disabled = false
+				var targets = hurtbox_right.get_overlapping_bodies()
+				if targets:
+					attack_hit = true
+					for target in targets:
+						if target.has_method("take_damage"):
+							target.take_damage()
+			else:
+				collision_shape_left.disabled = false
+				var targets = hurtbox_left.get_overlapping_bodies()
+				if targets:
+					attack_hit = true
+					for target in targets:
+						if target.has_method("take_damage"):
+							target.take_damage()
+		else: 
+			collision_shape_left.disabled = true
+			collision_shape_right.disabled = true
 	return null
 
 func _on_animated_sprite_2d_animation_finished():

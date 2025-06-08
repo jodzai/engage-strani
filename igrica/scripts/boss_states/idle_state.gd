@@ -14,7 +14,11 @@ var idle_timer_ended = false
 
 func enter() -> void:
 	$"../../Label".text = "Idle"
-	animated_sprite.play("Idle")
+	
+	if parent.big_attack_able:
+		animated_sprite.play("demon_idle")
+	else:
+		animated_sprite.play("Idle")
 	idle_timer.start(idle_time)
 	idle_timer_ended = false
 

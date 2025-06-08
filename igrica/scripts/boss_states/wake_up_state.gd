@@ -23,7 +23,6 @@ func _ready() -> void:
 
 func enter() -> void:
 	$"../../Label".text = "Waking_up"
-	animated_sprite.play("wake_up")
 	wake_up_anim_ended = false
 
 func process_frame(_delta: float) -> State:
@@ -35,3 +34,7 @@ func process_frame(_delta: float) -> State:
 
 func _on_animated_sprite_2d_animation_finished():
 	wake_up_anim_ended = true
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	animated_sprite.play("wake_up")
