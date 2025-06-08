@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://scripts/boss_states/idle_state.gd" id="11_lmyte"]
 [ext_resource type="Script" uid="uid://dcy81ij07cufk" path="res://scripts/boss_states/repost_attack_state.gd" id="12_n1u2x"]
 [ext_resource type="Script" uid="uid://dy56gb4gsc2gv" path="res://scripts/boss_states/big_attack.gd" id="14_n1u2x"]
-[ext_resource type="Script" path="res://scripts/boss_states/transition_state.gd" id="16_3psye"]
+[ext_resource type="Script" uid="uid://bp5eq57p6etb8" path="res://scripts/boss_states/transition_state.gd" id="16_3psye"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6gveq"]
 atlas = ExtResource("2_r2dn0")
