@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://broxtxrcw2njp"]
+[gd_scene load_steps=4 format=3 uid="uid://broxtxrcw2njp"]
 
-[ext_resource type="Script" uid="uid://cuj0oism1nsba" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://b6fsqttsyn2rj" path="res://assets/UI images/dark-dungeon-long-medieval-castle-600nw-2118070751.webp" id="2_ekxnf"]
+[ext_resource type="FontFile" uid="uid://b6yroy0bagn58" path="res://assets/UI images/Pixelcraft - Personal Use.ttf" id="3_bqqt6"]
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -11,6 +13,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l6cm7")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.184314)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 1152.0
+offset_bottom = 645.0
+texture = ExtResource("2_ekxnf")
+expand_mode = 2
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -18,10 +30,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -576.0
-offset_top = -321.0
-offset_right = 576.0
-offset_bottom = 321.0
+offset_left = -577.0
+offset_top = -324.0
+offset_right = 581.0
+offset_bottom = 327.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -38,6 +50,7 @@ offset_right = 239.6
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_bqqt6")
 theme_override_font_sizes/font_size = 91
 text = "SNAPSHOT"
 horizontal_alignment = 1
@@ -61,6 +74,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/icon_normal_color = Color(0.811765, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_bqqt6")
 theme_override_font_sizes/font_size = 40
 text = "START GAME"
 
@@ -68,6 +82,7 @@ text = "START GAME"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/icon_normal_color = Color(0.811765, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_bqqt6")
 theme_override_font_sizes/font_size = 40
 text = "EXIT"
 

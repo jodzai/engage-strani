@@ -8,7 +8,6 @@ const JUMP_VELOCITY = -400.0
 @onready var stamina_bar: ProgressBar = $"../CanvasLayer/Panel/stamina_bar"
 @onready var freeze_timer: Timer = $freeze_timer
 @onready var rewind_timer: Timer = $rewind_timer
-@onready var rewind_label: Label = $"../CanvasLayer/rewind_label"
 const SHADOW_SPRITE = preload("res://scenes/shadow_sprite.tscn")
 var shadow_instance: Node2D = null
 
