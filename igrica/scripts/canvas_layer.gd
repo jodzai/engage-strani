@@ -18,3 +18,12 @@ func _process(delta: float) -> void:
 		hourglass.self_modulate="ffffff31"
 	else:
 		hourglass.self_modulate="ffffffff"
+		
+	
+	if player.freeze_duration_timer.time_left>0:
+		hourglass.rotation+= deg_to_rad(180-float(player.sprite.sprite_frames.get_frame_count(player.sprite.animation)) /
+		player.sprite.sprite_frames.get_animation_speed(player.sprite.animation)+0.176) * delta
+
+func _ready() -> void:
+	process_mode=Node.PROCESS_MODE_ALWAYS
+	hourglass.pivot_offset = hourglass.size / 2
