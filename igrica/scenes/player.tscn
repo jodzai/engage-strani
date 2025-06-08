@@ -351,7 +351,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_42b1b")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -367,7 +367,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"falling",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -460,7 +460,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jump_start",
-"speed": 5.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -510,7 +510,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wqfne")
 }],
-"loop": true,
+"loop": false,
 "name": &"run",
 "speed": 10.0
 }]
@@ -527,10 +527,8 @@ script = ExtResource("1_qhqgy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wnwbv")
-animation = &"jump_start"
+animation = &"death"
 autoplay = "idle"
-frame = 2
-frame_progress = 1.0
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(3, 4)
@@ -560,8 +558,13 @@ one_shot = true
 [node name="freeze_cooldown" type="Timer" parent="."]
 one_shot = true
 
+[node name="rewind_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="sekundara" to="." method="_on_sekundara_timeout"]
 [connection signal="timeout" from="freeze_timer" to="." method="_on_freeze_timer_timeout"]
 [connection signal="timeout" from="freeze_duration_timer" to="." method="_on_freeze_duration_timer_timeout"]
 [connection signal="timeout" from="freeze_cooldown" to="." method="_on_freeze_cooldown_timeout"]
+[connection signal="timeout" from="rewind_timer" to="." method="_on_rewind_timer_timeout"]

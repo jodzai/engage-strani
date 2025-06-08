@@ -14,11 +14,13 @@ position = Vector2(-4.76837e-07, 0)
 scale = Vector2(0.304688, 0.294922)
 texture = ExtResource("1_7p1mj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_md0e3")
-
 [node name="lr_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_md0e3")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="lr_timer" to="." method="_on_lr_timer_timeout"]
