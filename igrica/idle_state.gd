@@ -14,7 +14,7 @@ var idle_timer_ended = false
 
 func enter() -> void:
 	$"../../Label".text = "Idle"
-	animated_sprite.play("wake_up")
+	animated_sprite.play("Idle")
 	idle_timer.start(idle_time)
 	idle_timer_ended = false
 

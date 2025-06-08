@@ -48,7 +48,7 @@ func process_frame(_delta: float) -> State:
 			return repost_state
 		return idle_state
 	#Ovde se menjaju frejmovi na kojima se udaraju
-	if animated_sprite.frame > 4 and animated_sprite.frame < 10:
+	if animated_sprite.frame == 6:
 		if follow_state.curr_dir.x > 0:
 			collision_shape_right.disabled = false
 			if hurtbox_right.get_overlapping_bodies():

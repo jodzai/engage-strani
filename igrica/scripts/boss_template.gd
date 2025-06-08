@@ -4,8 +4,8 @@ extends CharacterBody2D
 @onready var state_machine = $State_machine
 
 @export var player: CharacterBody2D
-@export var speed = 100
-@export var attack_change_len = 75.0
+@export var speed = 75
+@export var attack_change_len = 80.0
 @export var health: int = 3
 
 var attack_timer_min: float = 2.0
@@ -24,6 +24,10 @@ func _process(delta):
 	if health == 0:
 		second_faze = true
 		health = 3
+	if $AnimatedSprite2D.flip_h:
+		$AnimatedSprite2D.position.x = 346
+	else:
+		$AnimatedSprite2D.position.x = 0
 	state_machine.process_frame(delta)
 
 func _physics_process(delta):

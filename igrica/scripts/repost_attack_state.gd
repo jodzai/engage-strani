@@ -20,7 +20,7 @@ var attack_hit = false
 func enter() -> void:
 	$"../../Label".text = "AGAIN!!!"
 	
-	animated_sprite.play("short_attack")
+	animated_sprite.play("repost_attack")
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:
@@ -41,7 +41,7 @@ func process_frame(_delta: float) -> State:
 	if attack_anim_ended:
 		return idle_state
 	
-	if animated_sprite.frame > 4 and animated_sprite.frame < 10:
+	if animated_sprite.frame == 1:
 		if follow_state.curr_dir.x > 0:
 			collision_shape_right.disabled = false
 			if hurtbox_right.get_overlapping_bodies():
