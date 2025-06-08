@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://d2ey5k2tlqn5" path="res://assets/Enemy_Sprites/Boss_Phase_One_Move.png" id="7_njhua"]
 [ext_resource type="Script" uid="uid://rikvf1cxcju1" path="res://scripts/boss_states/long_attack_state.gd" id="8_ywu8v"]
 [ext_resource type="Script" uid="uid://df6dxjymqaxge" path="res://scripts/boss_states/wake_up_state.gd" id="9_r2dn0"]
-[ext_resource type="Script" path="res://scripts/boss_states/idle_state.gd" id="11_lmyte"]
+[ext_resource type="Script" uid="uid://bws6ut8jubtph" path="res://scripts/boss_states/idle_state.gd" id="11_lmyte"]
 [ext_resource type="Script" uid="uid://dcy81ij07cufk" path="res://scripts/boss_states/repost_attack_state.gd" id="12_n1u2x"]
 [ext_resource type="Script" uid="uid://dy56gb4gsc2gv" path="res://scripts/boss_states/big_attack.gd" id="14_n1u2x"]
 [ext_resource type="Script" uid="uid://bp5eq57p6etb8" path="res://scripts/boss_states/transition_state.gd" id="16_3psye"]
@@ -534,6 +534,26 @@ idle_state = NodePath("../idle_state")
 [node name="transition_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state")]
 script = ExtResource("16_3psye")
 follow_state = NodePath("../follow_state")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer7" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer8" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer9" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer10" type="AudioStreamPlayer" parent="."]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/wake_up_state" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/short_attack_state" method="_on_animated_sprite_2d_animation_finished"]

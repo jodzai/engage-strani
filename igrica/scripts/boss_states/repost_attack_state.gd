@@ -17,10 +17,16 @@ var player: CharacterBody2D
 var attack_anim_ended = false
 var attack_hit = false
 
+const SWING = preload("res://assets/Music/Swing.wav")
+@onready var audio_stream_player_10: AudioStreamPlayer = $"../../AudioStreamPlayer10"
+
+
 func enter() -> void:
 	$"../../Label".text = "AGAIN!!!"
 	
 	animated_sprite.play("repost_attack")
+	audio_stream_player_10.stream = SWING
+	audio_stream_player_10.play()
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:

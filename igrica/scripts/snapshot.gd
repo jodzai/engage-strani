@@ -9,12 +9,15 @@ extends Node
 
 var rewind_duration: float = 25
 
+const TIME_REVERSE_SFX = preload("res://assets/Music/Time Reverse SFX.wav")
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 # flags
 var is_rewinding: bool = false
 
 
 func _ready() -> void:
-	pass
+	audio_stream_player.stream = TIME_REVERSE_SFX
 
 func _process(delta: float) -> void:
 	if !is_rewinding:
@@ -38,6 +41,8 @@ func pre_rewind() -> void:
 	
 	player.snapshot_ability.pre_rewind()
 	boss.snapshot_ability.pre_rewind()
+	
+	audio_stream_player.play()
 	
 	rewind_time.start()
 

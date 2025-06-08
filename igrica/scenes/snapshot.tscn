@@ -8,3 +8,5 @@ script = ExtResource("1_y4r4x")
 [node name="rewind_time" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
