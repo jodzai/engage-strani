@@ -36,8 +36,16 @@ func process_frame(_delta: float) -> State:
 	if animated_sprite.frame == 4:
 		if follow_state.curr_dir.x > 0:
 			collision_laser_right.disabled = false
+			var targets = laser_right.get_overlapping_bodies()
+			for target in targets:
+				if target.has_method("take_damage"):
+					target.take_damage()
 		else:
 			collision_laser_left.disabled = false
+			var targets = laser_left.get_overlapping_bodies()
+			for target in targets:
+				if target.has_method("take_damage"):
+					target.take_damage()
 	else:
 		collision_laser_right.disabled = true
 		collision_laser_left.disabled = true

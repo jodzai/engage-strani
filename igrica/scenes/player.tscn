@@ -210,3 +210,8 @@ shape = SubResource("RectangleShape2D_gl8cc")
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["Player"]]
 zoom = Vector2(2.49, 2.49)
+
+[node name="Invic_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Invic_timer" to="." method="_on_invic_timer_timeout"]

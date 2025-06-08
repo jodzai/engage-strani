@@ -51,12 +51,20 @@ func process_frame(_delta: float) -> State:
 	if animated_sprite.frame == 6:
 		if follow_state.curr_dir.x > 0:
 			collision_shape_right.disabled = false
-			if hurtbox_right.get_overlapping_bodies():
+			var targets = hurtbox_right.get_overlapping_bodies()
+			if targets:
 				attack_hit = true
+				for target in targets:
+					if target.has_method("take_damage"):
+						target.take_damage()
 		else:
 			collision_shape_left.disabled = false
-			if hurtbox_left.get_overlapping_bodies():
+			var targets = hurtbox_left.get_overlapping_bodies()
+			if targets:
 				attack_hit = true
+				for target in targets:
+					if target.has_method("take_damage"):
+						target.take_damage()
 	else: 
 		collision_shape_left.disabled = true
 		collision_shape_right.disabled = true
