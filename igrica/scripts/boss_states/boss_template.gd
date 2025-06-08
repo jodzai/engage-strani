@@ -56,9 +56,6 @@ func _ready():
 	vertical_laser_sfx.stream = VERTICAL_LASER_SFX
 
 func _process(delta):
-	if Input.is_action_just_pressed("hurt_boss"):
-		health -= 1
-		print(health)
 	if health == 0:
 		first_faze_sfx.stop()
 		second_faze = true
@@ -100,7 +97,6 @@ func end_rewind():
 
 func take_damage():
 	if vulnerable:
-		print(health)
 		vulnerable = false
 		i_frames.start(0.5)
 		health-=1
