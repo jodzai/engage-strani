@@ -5,13 +5,16 @@
 [ext_resource type="PackedScene" uid="uid://blf8o7dh1lja1" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://17sraeh0a71t" path="res://assets/TileSets/Background_Bricks.png" id="3_p57ef"]
 [ext_resource type="PackedScene" uid="uid://b2c1c0dy37di3" path="res://scenes/snapshot.tscn" id="5_iywne"]
-[ext_resource type="Texture2D" uid="uid://c5afvh5x1jnrp" path="res://assets/UI images/hourglass.png" id="5_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://xf6ncgev6nvq" path="res://assets/UI images/hourglass.png" id="5_u5sy4"]
 [ext_resource type="Script" uid="uid://cxux0wd6k75en" path="res://scripts/canvas_layer.gd" id="5_vtaks"]
-[ext_resource type="Texture2D" uid="uid://cal2xhiiu6c5w" path="res://assets/UI images/slash.png" id="6_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://fbderml83lxi" path="res://assets/UI images/slash.png" id="6_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ds8c2hfinc1vu" path="res://scenes/boss_template.tscn" id="6_p57ef"]
+
 [ext_resource type="Texture2D" uid="uid://chs07kwvs8jig" path="res://assets/UI images/portal.png" id="7_vtaks"]
 [ext_resource type="Script" uid="uid://b2fswu1kciu0s" path="res://scripts/panel_2.gd" id="9_dinhu"]
 [ext_resource type="Texture2D" uid="uid://b0xvefgakiwr4" path="res://assets/UI images/heart.png" id="9_kvpfn"]
+
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
