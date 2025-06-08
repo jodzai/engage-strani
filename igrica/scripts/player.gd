@@ -84,6 +84,7 @@ func _physics_process(delta: float) -> void:
 			if shadow_instance == null:
 				shadow_instance = SHADOW_SPRITE.instantiate()
 				get_parent().add_child(shadow_instance)
+				shadow_instance.flip_h=sprite.flip_h
 				shadow_instance.global_position = global_position
 			game.snapshot.begin_snapshot()
 			stamina-=50
