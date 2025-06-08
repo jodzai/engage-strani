@@ -23,8 +23,10 @@ var attack_hit = false
 
 func enter() -> void:
 	$"../../Label".text = "SHORT ATTACK!!!"
-	
-	animated_sprite.play("short_attack")
+	if parent.big_attack_able:
+		animated_sprite.play("demon_short_attack")
+	else:
+		animated_sprite.play("short_attack")
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:

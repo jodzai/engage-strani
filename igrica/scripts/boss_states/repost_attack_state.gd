@@ -20,7 +20,11 @@ var attack_hit = false
 func enter() -> void:
 	$"../../Label".text = "AGAIN!!!"
 	
-	animated_sprite.play("repost_attack")
+	if parent.big_attack_able:
+		animated_sprite.play("demon_repost")
+	else:
+		animated_sprite.play("repost_attack")
+	
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:

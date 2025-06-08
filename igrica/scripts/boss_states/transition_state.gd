@@ -12,7 +12,7 @@ var transition_anim_ended = false
 
 func enter() -> void:
 	$"../../Label".text = "Transition"
-	animated_sprite.play("wake_up")
+	animated_sprite.play("transition")
 	transition_anim_ended = false
 	parent.second_faze = false
 	parent.power_up()

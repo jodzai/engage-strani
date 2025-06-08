@@ -23,7 +23,12 @@ func enter() -> void:
 	start_dir.y = 0
 	start_dir = start_dir.normalized()
 	
-	animated_sprite.play("walking")
+	if parent.big_attack_able:
+		animated_sprite.play("demon_idle")
+	else:
+		animated_sprite.play("walking")
+	
+	
 	if start_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:
@@ -46,14 +51,14 @@ func process_physics(delta:float) -> State:
 	#Ako biva preskočen onda treba da se okrene
 	#nema veze :(
 	#Prvi put kad anailazi na igrača biće šort atack
-	if parent.global_position.distance_to(player.global_position) < parent.attack_change_len and !player_entered_zone:
+	if parent.global_position.x - player.global_position.x < parent.attack_change_len and !player_entered_zone:
 		player_entered_zone = true
 		attack_start_timer.start()
 		return short_attack_state
 	
 	#Svaki sledeći napad se određuje ovde
 	if player_entered_zone and attack_start_timer_ended:
-		if parent.global_position.distance_to(player.global_position) < parent.attack_change_len:
+		if parent.global_position.x - player.global_position.x < parent.attack_change_len:
 			return short_attack_state
 		else:
 			if parent.big_attack_able:

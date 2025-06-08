@@ -11,7 +11,6 @@ var wake_up_anim_ended = false
 
 func enter() -> void:
 	$"../../Label".text = "Waking_up"
-	animated_sprite.play("wake_up")
 	wake_up_anim_ended = false
 
 func process_frame(_delta: float) -> State:
