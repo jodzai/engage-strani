@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://d55jmirscwnu"]
+[gd_scene load_steps=21 format=4 uid="uid://d55jmirscwnu"]
 
 [ext_resource type="Script" uid="uid://dtor00dx7cthw" path="res://scripts/game.gd" id="1_iywne"]
 [ext_resource type="Texture2D" uid="uid://dbukp0ueo6nd0" path="res://assets/TileSets/Bricks_Front.png" id="1_uwrxv"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://cal2xhiiu6c5w" path="res://assets/UI images/slash.png" id="6_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ds8c2hfinc1vu" path="res://scenes/boss_template.tscn" id="6_p57ef"]
 [ext_resource type="Texture2D" uid="uid://chs07kwvs8jig" path="res://assets/UI images/portal.png" id="7_vtaks"]
+[ext_resource type="Script" uid="uid://b2fswu1kciu0s" path="res://scripts/panel_2.gd" id="9_dinhu"]
+[ext_resource type="Texture2D" uid="uid://b0xvefgakiwr4" path="res://assets/UI images/heart.png" id="9_kvpfn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
@@ -194,7 +196,7 @@ shape = SubResource("WorldBoundaryShape2D_lnu2h")
 script = ExtResource("5_vtaks")
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
-self_modulate = Color(1, 1, 1, 0.141176)
+self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -212,10 +214,10 @@ anchor_left = 0.0312499
 anchor_top = -0.256173
 anchor_right = 0.0607638
 anchor_bottom = -0.25463
-offset_left = 22.8438
-offset_top = 125.559
-offset_right = 74.8437
-offset_bottom = 152.559
+offset_left = 22.625
+offset_top = 135.559
+offset_right = 96.0487
+offset_bottom = 162.357
 rotation = -1.56073
 show_percentage = false
 
@@ -246,8 +248,66 @@ offset_bottom = 102.0
 texture = ExtResource("5_u5sy4")
 expand_mode = 1
 
+[node name="Panel2" type="Panel" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 10.0
+offset_top = 562.0
+offset_right = 316.0
+offset_bottom = 638.0
+script = ExtResource("9_dinhu")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Panel2"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 11.0
+offset_right = 93.0
+offset_bottom = 91.0
+scale = Vector2(0.733087, 0.669926)
+texture = ExtResource("9_kvpfn")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Panel2"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 13.0
+offset_right = 150.0
+offset_bottom = 91.0
+scale = Vector2(0.733087, 0.669926)
+texture = ExtResource("9_kvpfn")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Panel2"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 14.0
+offset_right = 206.0
+offset_bottom = 90.0
+scale = Vector2(0.733087, 0.669926)
+texture = ExtResource("9_kvpfn")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/Panel2"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 14.0
+offset_right = 264.0
+offset_bottom = 92.0
+scale = Vector2(0.733087, 0.669926)
+texture = ExtResource("9_kvpfn")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/Panel2"]
+layout_mode = 0
+offset_left = 237.0
+offset_top = 13.0
+offset_right = 322.0
+offset_bottom = 94.0
+scale = Vector2(0.733087, 0.669926)
+texture = ExtResource("9_kvpfn")
+expand_mode = 1
+
 [node name="snapshot" parent="." instance=ExtResource("5_iywne")]
 
 [node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_p57ef")]
-position = Vector2(1758, 287)
+position = Vector2(1903, 290)
 player = NodePath("../player")

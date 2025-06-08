@@ -107,9 +107,12 @@ func _physics_process(delta: float) -> void:
 		start_freeze_sequence()
 	
 	if Input.is_action_just_pressed("lose_health"):
-		health-=1
+		damage_self()
 		print("health " + str(health))
 	move_and_slide()
+
+func damage_self():
+	health-=1
 	
 func disable_input() -> void:
 	input_enabled = false
