@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://blf8o7dh1lja1"]
+[gd_scene load_steps=85 format=3 uid="uid://blf8o7dh1lja1"]
 
 [ext_resource type="Script" uid="uid://ck83kq37x6xdh" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://b40lvcjv3h8m6" path="res://assets/Player_Sprites/Mage_Idle.png" id="2_dqkch"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://3bstqpc0k0ms" path="res://assets/Player_Sprites/Mage_Falling.png" id="4_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://dvi8p83y4cvbg" path="res://assets/Player_Sprites/Mage_JumpStart.png" id="7_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dcuylghfrwbf6" path="res://assets/Player_Sprites/Mage_Jumping.png" id="8_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://dtjy750ffulo5" path="res://assets/Player_Sprites/Mage_Slash.png" id="10_y4r1p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
 atlas = ExtResource("2_qlg0r")
@@ -274,6 +275,26 @@ region = Rect2(0, 76, 35, 38)
 atlas = ExtResource("3_qlg0r")
 region = Rect2(35, 76, 35, 38)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vau08"]
+atlas = ExtResource("10_y4r1p")
+region = Rect2(0, 0, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsb7e"]
+atlas = ExtResource("10_y4r1p")
+region = Rect2(42, 0, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjsmb"]
+atlas = ExtResource("10_y4r1p")
+region = Rect2(84, 0, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwp2n"]
+atlas = ExtResource("10_y4r1p")
+region = Rect2(0, 38, 42, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yhus"]
+atlas = ExtResource("10_y4r1p")
+region = Rect2(42, 38, 42, 38)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wnwbv"]
 animations = [{
 "frames": [{
@@ -513,6 +534,26 @@ animations = [{
 "loop": false,
 "name": &"run",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vau08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsb7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjsmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwp2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yhus")
+}],
+"loop": false,
+"name": &"slash",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gl8cc"]
@@ -527,7 +568,7 @@ script = ExtResource("1_qhqgy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wnwbv")
-animation = &"death"
+animation = &"slash"
 autoplay = "idle"
 
 [node name="collision" type="CollisionShape2D" parent="."]
@@ -560,6 +601,16 @@ one_shot = true
 
 [node name="rewind_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="walking2" type="AudioStreamPlayer" parent="."]
+
+[node name="walking3" type="AudioStreamPlayer" parent="."]
+
+[node name="walking4" type="AudioStreamPlayer" parent="."]
+
+[node name="walking8" type="AudioStreamPlayer" parent="."]
+
+[node name="death" type="AudioStreamPlayer" parent="."]
 
 [connection signal="animation_finished" from="sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]

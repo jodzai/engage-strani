@@ -17,13 +17,19 @@ var player: CharacterBody2D
 
 var attack_anim_ended = false
 
+const LASER_SMALL_SFX = preload("res://assets/Music/Laser Small SFX.wav")
+@onready var audio_stream_player_8: AudioStreamPlayer = $"../../AudioStreamPlayer8"
+
 func enter() -> void:
 	$"../../Label".text = "LONG ATTACK!!!"
 	
+
 	if parent.big_attack_able:
 		animated_sprite.play("demon_small_laser")
 	else:
 		animated_sprite.play("long_attack")
+
+
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:

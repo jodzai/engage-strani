@@ -1,15 +1,13 @@
 class_name Player 
 extends RewindableCharacter
 
-const SPEED = 200
+const SPEED = 100
 const JUMP_VELOCITY = -400.0
 
 @onready var sprite: AnimatedSprite2D = $sprite
-@onready var stamina_bar: ProgressBar = $"../CanvasLayer/stamina_bar"
+@onready var stamina_bar: ProgressBar = $"../CanvasLayer/Panel/stamina_bar"
 @onready var freeze_timer: Timer = $freeze_timer
-@onready var freeze_cd_label: Label = $"../CanvasLayer/freeze_cd_label"
 @onready var rewind_timer: Timer = $rewind_timer
-@onready var rewind_label: Label = $"../CanvasLayer/rewind_label"
 const SHADOW_SPRITE = preload("res://scenes/shadow_sprite.tscn")
 var shadow_instance: Node2D = null
 
@@ -32,6 +30,32 @@ var died=false
 @onready var aura: Area2D = $aura
 @onready var collision: CollisionShape2D = $collision
 
+
+# audio
+const CLICK = preload("res://assets/Music/Click.wav")
+const DASH = preload("res://assets/Music/Dash.wav")
+const HIT = preload("res://assets/Music/Hit.wav")
+const JUMP = preload("res://assets/Music/Jump.wav")
+const SWING = preload("res://assets/Music/Swing.wav")
+const TIME_REVERSE_SFX = preload("res://assets/Music/Time Reverse SFX.wav")
+const WALK = preload("res://assets/Music/Walk.wav")
+const DEATH = preload("res://assets/Music/Dying.wav")
+
+@onready var dash_sfx: AudioStreamPlayer = $walking2
+@onready var hit_sfx: AudioStreamPlayer = $walking3
+@onready var jump_sfx: AudioStreamPlayer = $walking4
+@onready var walk_sfx: AudioStreamPlayer = $walking8
+@onready var death: AudioStreamPlayer = $death
+
+func _ready() -> void:
+	sekundara.start(stamina_refresh)
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	dash_sfx.stream = DASH
+	hit_sfx.stream = HIT
+	jump_sfx.stream = JUMP
+	walk_sfx.stream = WALK
+	death.stream = DEATH
+
 func _physics_process(delta: float) -> void:
 	
 #	var bodies: Array[Node2D] = aura.get_overlapping_bodies()
@@ -46,7 +70,9 @@ func _physics_process(delta: float) -> void:
 	if health<=0 and died==false:
 		print("smrt")
 		died=true
+		death.play()
 		sprite.play("death")
+		
 		print("umro")
 		input_enabled=false
 		return
@@ -59,21 +85,14 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
 	
-	
-	rewind_label.text="%.1f" % rewind_timer.time_left
-	if rewind_timer.time_left==0:
-		rewind_label.visible=false
-	else: rewind_label.visible=true
-		
-		
 	if is_dashing:
 		if not sprite.flip_h:
 			velocity.x=dash_speed
 		elif sprite.flip_h:
 			velocity.x=-dash_speed
-	freeze_cd_label.text = "%.1f" % freeze_cooldown.time_left
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_dashing:
 		velocity.y = JUMP_VELOCITY
+		jump_sfx.play()
 		sprite.play("jump_start")
 	
 	if Input.is_action_just_pressed("dash"):
@@ -100,6 +119,7 @@ func _physics_process(delta: float) -> void:
 	if direction and not is_dashing:
 		if is_on_floor() and sprite.animation!="jump_start":
 			sprite.play('run')
+			
 		velocity.x = direction * SPEED
 	elif not is_dashing:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -113,9 +133,12 @@ func _physics_process(delta: float) -> void:
 		start_freeze_sequence()
 	
 	if Input.is_action_just_pressed("lose_health"):
-		health-=1
+		damage_self()
 		print("health " + str(health))
 	move_and_slide()
+
+func damage_self():
+	health-=1
 	
 func disable_input() -> void:
 	input_enabled = false
@@ -132,6 +155,7 @@ func enable_vulnerability() -> void:
 func dash():
 	if not is_dashing and stamina>=30:
 		sprite.play("dash")
+		dash_sfx.play()
 		sekundara.stop()
 		stamina-=30
 		if stamina<0:
@@ -145,8 +169,6 @@ func start_freeze_sequence():
 	if freeze_ready:
 		freeze_ready=false
 		freeze_cooldown.start(12)
-		freeze_cd_label.visible=true
-		freeze_cd_label.text="12"
 		input_enabled = false
 		sprite.play("freeze_anim")
 		freeze_timer.start(float(sprite.sprite_frames.get_frame_count(sprite.animation)) /
@@ -159,10 +181,6 @@ func _on_dash_timer_timeout() -> void:
 
 func _process(delta: float) -> void:
 	stamina_bar.value=stamina
-
-func _ready() -> void:
-	sekundara.start(stamina_refresh)
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 func _on_sekundara_timeout() -> void:
 	if(stamina<100):
@@ -178,10 +196,10 @@ func _on_freeze_duration_timer_timeout() -> void:
 
 func _on_freeze_cooldown_timeout() -> void:
 	freeze_ready=true
-	freeze_cd_label.visible=false
 
 func pre_rewind() -> void:
 	collision.disabled = true
+	sprite.play("slash")
 
 func end_rewind() -> void:
 	collision.disabled = false 

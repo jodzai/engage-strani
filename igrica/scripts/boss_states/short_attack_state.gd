@@ -27,12 +27,18 @@ var player: CharacterBody2D
 var attack_anim_ended = false
 var attack_hit = false
 
+const SWING = preload("res://assets/Music/Swing.wav")
+@onready var audio_stream_player_10: AudioStreamPlayer = $"../../AudioStreamPlayer10"
+
+
 func enter() -> void:
 	$"../../Label".text = "SHORT ATTACK!!!"
+
 	if parent.big_attack_able:
 		animated_sprite.play("demon_short_attack")
 	else:
 		animated_sprite.play("short_attack")
+
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:
