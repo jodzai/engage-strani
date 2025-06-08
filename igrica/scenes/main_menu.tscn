@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://broxtxrcw2njp"]
 
 [ext_resource type="Script" uid="uid://cuj0oism1nsba" path="res://scripts/main_menu.gd" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://b6fsqttsyn2rj" path="res://assets/UI images/dark-dungeon-long-medieval-castle-600nw-2118070751.webp" id="2_ekxnf"]
-[ext_resource type="FontFile" uid="uid://b6yroy0bagn58" path="res://assets/UI images/Pixelcraft - Personal Use.ttf" id="3_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://vxphxpnsn8t6" path="res://assets/UI images/dark-dungeon-long-medieval-castle-600nw-2118070751.webp" id="2_ekxnf"]
+[ext_resource type="FontFile" uid="uid://k228g0c11wgr" path="res://assets/UI images/Pixelcraft - Personal Use.ttf" id="3_bqqt6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
 bg_color = Color(0.121569, 0.0705882, 0.117647, 1)
@@ -149,13 +149,13 @@ magic you still command:
 
 [ Abilities & Controls ]
 
-TIME FREEZE  — Press [F]  
+TIME FREEZE  — Press [E]  
         Stops everything. Literally. Except you.  
         Use it to dodge, reposition, or flex.
 
 DASH  — Press [SHIFT]  
 
-TIME SLASH  — Press [T]  
+TIME SLASH  — Press [Q]  
         Your ultimate move. Cuts through time itself.  
         Also cuts bosses. Which is the point.
 

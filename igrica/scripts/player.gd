@@ -1,7 +1,7 @@
 class_name Player 
 extends RewindableCharacter
 
-const SPEED = 100
+const SPEED = 170
 const JUMP_VELOCITY = -400.0
 
 @onready var sprite: AnimatedSprite2D = $sprite
@@ -10,6 +10,8 @@ const JUMP_VELOCITY = -400.0
 @onready var rewind_timer: Timer = $rewind_timer
 const SHADOW_SPRITE = preload("res://scenes/shadow_sprite.tscn")
 var shadow_instance: Node2D = null
+@onready var i_frames: Timer = $i_frames
+@onready var hitbox_collide: CollisionShape2D = $Hitbox/hitbox_collide
 
 var health=5
 var input_enabled := true
@@ -199,6 +201,7 @@ func _on_freeze_cooldown_timeout() -> void:
 
 func pre_rewind() -> void:
 	collision.disabled = true
+	hitbox_collide.disabled = false
 	sprite.play("slash")
 
 func end_rewind() -> void:
@@ -206,6 +209,7 @@ func end_rewind() -> void:
 	if shadow_instance:
 		shadow_instance.queue_free()
 		shadow_instance = null
+	hitbox_collide.disabled = true
 
 func _on_sprite_animation_finished() -> void:
 	if sprite.animation=="jump_start":
@@ -217,3 +221,18 @@ func _on_sprite_animation_finished() -> void:
 func _on_rewind_timer_timeout() -> void:
 	game.snapshot.pre_rewind()
 	
+func take_damage():
+	if vulnerable:
+		health -= 1
+		vulnerable = false
+		i_frames.start(0.5)
+		check_death()
+	
+func check_death():
+	if health <= 0 :
+		sprite.play("death")
+
+
+func _on_i_frames_timeout() -> void:
+	vulnerable = true
+	pass # Replace with function body.

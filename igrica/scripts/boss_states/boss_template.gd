@@ -3,6 +3,7 @@ extends RewindableCharacter
 
 @onready var state_machine = $State_machine
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var i_frames: Timer = $i_frames
 
 @export var player: CharacterBody2D
 @export var speed = 2
@@ -18,6 +19,8 @@ var attack_timer_max: float = 4.0
 
 var second_faze: bool = false
 var big_attack_able: bool = false
+
+var vulnerable : bool = true
 
 const BOSS_DYING = preload("res://assets/Music/Boss Dying.wav")
 const BOSS_FIRST_FAZE = preload("res://assets/Music/Boss First Faze.wav")
@@ -94,3 +97,25 @@ func end_rewind():
 	animated_sprite_2d.frame = old_frame
 	animated_sprite_2d.play()
 	pass
+
+func take_damage():
+	if vulnerable:
+		print(health)
+		vulnerable = false
+		i_frames.start(0.5)
+		health-=1
+		check_death()
+	
+func check_death():
+	if big_attack_able and health<=0:
+		hide()
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	take_damage()
+	pass # Replace with function body.
+
+
+func _on_i_frames_timeout() -> void:
+	vulnerable = true
+	pass # Replace with function body.
