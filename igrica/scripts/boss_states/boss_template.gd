@@ -1,12 +1,17 @@
 class_name Boss
-extends CharacterBody2D
+extends RewindableCharacter
 
 @onready var state_machine = $State_machine
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var player: CharacterBody2D
 @export var speed = 75
 @export var attack_change_len = 80.0
 @export var health: int = 3
+
+var old_state: State = null
+var old_animation = null
+var old_frame = null
 
 var attack_timer_min: float = 2.0
 var attack_timer_max: float = 4.0
@@ -42,3 +47,18 @@ func power_up():
 	%idle_state.idle_time = %idle_state.idle_time / 2
 	attack_timer_min = attack_timer_min / 2
 	attack_timer_max = attack_timer_max / 2
+
+func begin_snapshot():
+	old_state = state_machine.current_state
+	old_frame = animated_sprite_2d.frame
+	pass
+
+func pre_rewind():
+	animated_sprite_2d.pause()
+	pass
+
+func end_rewind():
+	state_machine.change_state(old_state)
+	animated_sprite_2d.frame = old_frame
+	animated_sprite_2d.play()
+	pass
