@@ -1,11 +1,15 @@
-[gd_scene load_steps=17 format=4 uid="uid://d55jmirscwnu"]
+[gd_scene load_steps=21 format=4 uid="uid://d55jmirscwnu"]
 
 [ext_resource type="Script" uid="uid://dtor00dx7cthw" path="res://scripts/game.gd" id="1_iywne"]
 [ext_resource type="Texture2D" uid="uid://dbukp0ueo6nd0" path="res://assets/TileSets/Bricks_Front.png" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://blf8o7dh1lja1" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://17sraeh0a71t" path="res://assets/TileSets/Background_Bricks.png" id="3_p57ef"]
 [ext_resource type="PackedScene" uid="uid://b2c1c0dy37di3" path="res://scenes/snapshot.tscn" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://c5afvh5x1jnrp" path="res://assets/UI images/hourglass.png" id="5_u5sy4"]
+[ext_resource type="Script" uid="uid://cxux0wd6k75en" path="res://scripts/canvas_layer.gd" id="5_vtaks"]
+[ext_resource type="Texture2D" uid="uid://bw3pw8bcfuy6m" path="res://assets/UI images/slash.png" id="6_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ds8c2hfinc1vu" path="res://scenes/boss_template.tscn" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://chs07kwvs8jig" path="res://assets/UI images/portal.png" id="7_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
@@ -196,6 +200,7 @@ position = Vector2(-1078, -170)
 shape = SubResource("WorldBoundaryShape2D_lnu2h")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("5_vtaks")
 
 [node name="stamina_bar" type="ProgressBar" parent="CanvasLayer"]
 anchors_preset = -1
@@ -229,6 +234,30 @@ offset_left = 17.0
 offset_top = 39.0
 offset_right = 57.0
 offset_bottom = 62.0
+
+[node name="portal" type="TextureRect" parent="CanvasLayer"]
+offset_left = 893.0
+offset_top = 24.0
+offset_right = 1002.0
+offset_bottom = 118.0
+texture = ExtResource("7_vtaks")
+expand_mode = 1
+
+[node name="slash" type="TextureRect" parent="CanvasLayer"]
+offset_left = 1001.0
+offset_top = -3.0
+offset_right = 1119.0
+offset_bottom = 154.0
+texture = ExtResource("6_0tnpc")
+expand_mode = 1
+
+[node name="hourglass" type="TextureRect" parent="CanvasLayer"]
+offset_left = 767.0
+offset_top = 18.0
+offset_right = 890.0
+offset_bottom = 129.0
+texture = ExtResource("5_u5sy4")
+expand_mode = 1
 
 [node name="snapshot" parent="." instance=ExtResource("5_iywne")]
 
