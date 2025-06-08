@@ -39,11 +39,13 @@ const JUMP = preload("res://assets/Music/Jump.wav")
 const SWING = preload("res://assets/Music/Swing.wav")
 const TIME_REVERSE_SFX = preload("res://assets/Music/Time Reverse SFX.wav")
 const WALK = preload("res://assets/Music/Walk.wav")
+const DEATH = preload("res://assets/Music/Dying.wav")
 
 @onready var dash_sfx: AudioStreamPlayer = $walking2
 @onready var hit_sfx: AudioStreamPlayer = $walking3
 @onready var jump_sfx: AudioStreamPlayer = $walking4
 @onready var walk_sfx: AudioStreamPlayer = $walking8
+@onready var death: AudioStreamPlayer = $death
 
 func _ready() -> void:
 	sekundara.start(stamina_refresh)
@@ -52,6 +54,7 @@ func _ready() -> void:
 	hit_sfx.stream = HIT
 	jump_sfx.stream = JUMP
 	walk_sfx.stream = WALK
+	death.stream = DEATH
 
 func _physics_process(delta: float) -> void:
 	
@@ -67,7 +70,9 @@ func _physics_process(delta: float) -> void:
 	if health<=0 and died==false:
 		print("smrt")
 		died=true
+		death.play()
 		sprite.play("death")
+		
 		print("umro")
 		input_enabled=false
 		return
