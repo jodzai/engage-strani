@@ -184,7 +184,7 @@ position = Vector2(1847, 65)
 
 [node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_p57ef")]
 z_index = 1
-position = Vector2(1984, 52)
+position = Vector2(2308, 48)
 player = NodePath("../player")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

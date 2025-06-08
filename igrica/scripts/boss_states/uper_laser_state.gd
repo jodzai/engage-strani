@@ -3,6 +3,12 @@ extends State
 @onready var animated_sprite = $"../../AnimatedSprite2D"
 @onready var attack_start_timer = $"../../attack_start_timer"
 
+@onready var upper_laser_left = $"../../upper_laser_left"
+@onready var collision_shape_left = $"../../upper_laser_left/CollisionShape2D"
+@onready var upper_laser_right = $"../../upper_laser_right"
+@onready var collision_shape_right = $"../../upper_laser_right/CollisionShape2D"
+
+
 @export var follow_state: State
 @export var idle_state: State
 
@@ -29,22 +35,22 @@ func process_frame(_delta: float) -> State:
 	if animated_sprite.frame == 4:
 		if follow_state.curr_dir.x > 0:
 			pass
-		#	collision_laser_right.disabled = false
-		#	var targets = laser_right.get_overlapping_bodies()
-		#	for target in targets:
-		#		if target.has_method("take_damage"):
-		#			target.take_damage()
+			collision_shape_right.disabled = false
+			var targets = upper_laser_right.get_overlapping_bodies()
+			for target in targets:
+				if target.has_method("take_damage"):
+					target.take_damage()
 		else:
 			pass
-		#	collision_laser_left.disabled = false
-		#	var targets = laser_left.get_overlapping_bodies()
-		#	for target in targets:
-		#		if target.has_method("take_damage"):
-		#			target.take_damage()
+			collision_shape_left.disabled = false
+			var targets = upper_laser_right.get_overlapping_bodies()
+			for target in targets:
+				if target.has_method("take_damage"):
+					target.take_damage()
 	else:
 		pass
-	#	collision_laser_right.disabled = true
-	#	collision_laser_left.disabled = true
+		collision_shape_right.disabled = true
+		collision_shape_left.disabled = true
 	
 	parent.velocity -= parent.velocity * 0.2
 	if attack_anim_ended:
