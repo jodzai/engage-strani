@@ -5,12 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://blf8o7dh1lja1" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://17sraeh0a71t" path="res://assets/TileSets/Background_Bricks.png" id="3_p57ef"]
 [ext_resource type="PackedScene" uid="uid://b2c1c0dy37di3" path="res://scenes/snapshot.tscn" id="5_iywne"]
-[ext_resource type="Texture2D" uid="uid://birek3pxdgg8m" path="res://assets/UI images/hourglass.png" id="5_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://xf6ncgev6nvq" path="res://assets/UI images/hourglass.png" id="5_u5sy4"]
 [ext_resource type="Script" uid="uid://cxux0wd6k75en" path="res://scripts/canvas_layer.gd" id="5_vtaks"]
-[ext_resource type="Texture2D" uid="uid://cal2xhiiu6c5w" path="res://assets/UI images/slash.png" id="6_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://fbderml83lxi" path="res://assets/UI images/slash.png" id="6_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ds8c2hfinc1vu" path="res://scenes/boss_template.tscn" id="6_p57ef"]
-[ext_resource type="Texture2D" uid="uid://by1esq1w62hqm" path="res://assets/UI images/portal.png" id="7_vtaks"]
-[ext_resource type="AudioStream" uid="uid://dv1vr4k4i3u52" path="res://assets/Music/Boss First Faze.wav" id="11_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://2l2g46jcsrm0" path="res://assets/UI images/portal.png" id="7_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
@@ -252,10 +251,3 @@ expand_mode = 1
 [node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_p57ef")]
 position = Vector2(1758, 287)
 player = NodePath("../player")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_kvpfn")
-volume_db = 6.933
-autoplay = true
-max_distance = 4096.0
-attenuation = 0.0525561

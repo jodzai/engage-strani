@@ -80,10 +80,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
 	
-	
-	
-		
-		
 	if is_dashing:
 		if not sprite.flip_h:
 			velocity.x=dash_speed
