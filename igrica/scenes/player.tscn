@@ -561,6 +561,14 @@ one_shot = true
 [node name="rewind_timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="walking2" type="AudioStreamPlayer" parent="."]
+
+[node name="walking3" type="AudioStreamPlayer" parent="."]
+
+[node name="walking4" type="AudioStreamPlayer" parent="."]
+
+[node name="walking8" type="AudioStreamPlayer" parent="."]
+
 [connection signal="animation_finished" from="sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="sekundara" to="." method="_on_sekundara_timeout"]

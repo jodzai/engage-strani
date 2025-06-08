@@ -32,6 +32,29 @@ var died=false
 @onready var aura: Area2D = $aura
 @onready var collision: CollisionShape2D = $collision
 
+
+# audio
+const CLICK = preload("res://assets/Music/Click.wav")
+const DASH = preload("res://assets/Music/Dash.wav")
+const HIT = preload("res://assets/Music/Hit.wav")
+const JUMP = preload("res://assets/Music/Jump.wav")
+const SWING = preload("res://assets/Music/Swing.wav")
+const TIME_REVERSE_SFX = preload("res://assets/Music/Time Reverse SFX.wav")
+const WALK = preload("res://assets/Music/Walk.wav")
+
+@onready var dash_sfx: AudioStreamPlayer = $walking2
+@onready var hit_sfx: AudioStreamPlayer = $walking3
+@onready var jump_sfx: AudioStreamPlayer = $walking4
+@onready var walk_sfx: AudioStreamPlayer = $walking8
+
+func _ready() -> void:
+	sekundara.start(stamina_refresh)
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	dash_sfx.stream = DASH
+	hit_sfx.stream = HIT
+	jump_sfx.stream = JUMP
+	walk_sfx.stream = WALK
+
 func _physics_process(delta: float) -> void:
 	
 #	var bodies: Array[Node2D] = aura.get_overlapping_bodies()
@@ -74,6 +97,7 @@ func _physics_process(delta: float) -> void:
 	freeze_cd_label.text = "%.1f" % freeze_cooldown.time_left
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_dashing:
 		velocity.y = JUMP_VELOCITY
+		jump_sfx.play()
 		sprite.play("jump_start")
 	
 	if Input.is_action_just_pressed("dash"):
@@ -100,6 +124,7 @@ func _physics_process(delta: float) -> void:
 	if direction and not is_dashing:
 		if is_on_floor() and sprite.animation!="jump_start":
 			sprite.play('run')
+			
 		velocity.x = direction * SPEED
 	elif not is_dashing:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -132,6 +157,7 @@ func enable_vulnerability() -> void:
 func dash():
 	if not is_dashing and stamina>=30:
 		sprite.play("dash")
+		dash_sfx.play()
 		sekundara.stop()
 		stamina-=30
 		if stamina<0:
@@ -159,10 +185,6 @@ func _on_dash_timer_timeout() -> void:
 
 func _process(delta: float) -> void:
 	stamina_bar.value=stamina
-
-func _ready() -> void:
-	sekundara.start(stamina_refresh)
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 func _on_sekundara_timeout() -> void:
 	if(stamina<100):
