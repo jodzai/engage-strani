@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=3 uid="uid://ds8c2hfinc1vu"]
+[gd_scene load_steps=143 format=3 uid="uid://ds8c2hfinc1vu"]
 
 [ext_resource type="Script" uid="uid://dtv4f3vtk6uo1" path="res://scripts/boss_states/boss_template.gd" id="1_ulsxb"]
 [ext_resource type="Texture2D" uid="uid://ow10md5j804q" path="res://assets/Enemy_Sprites/Boss_Phase_One_Idle.png" id="2_r2dn0"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://dcy81ij07cufk" path="res://scripts/boss_states/repost_attack_state.gd" id="12_n1u2x"]
 [ext_resource type="Script" uid="uid://dy56gb4gsc2gv" path="res://scripts/boss_states/big_attack.gd" id="14_n1u2x"]
 [ext_resource type="Script" uid="uid://bp5eq57p6etb8" path="res://scripts/boss_states/transition_state.gd" id="16_3psye"]
+[ext_resource type="Script" uid="uid://bwcx6l4ubt2la" path="res://scripts/boss_states/uper_laser_state.gd" id="22_4bbq4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6gveq"]
 atlas = ExtResource("2_r2dn0")
@@ -916,9 +917,11 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_ulsxb")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lg50n")
-animation = &"short_attack"
+animation = &"wake_up"
 offset = Vector2(-173, -26)
 
 [node name="hurtbox_left" type="Area2D" parent="."]
@@ -975,18 +978,19 @@ starting_state = NodePath("wake_up_state")
 script = ExtResource("9_r2dn0")
 follow_state = NodePath("../follow_state")
 
-[node name="follow_state" type="Node" parent="State_machine" node_paths=PackedStringArray("short_attack_state", "long_attack_state", "transition", "big_attack_state")]
-script = ExtResource("5_75cnn")
-short_attack_state = NodePath("../short_attack_state")
-long_attack_state = NodePath("../long_attack_state")
-transition = NodePath("../transition_state")
-big_attack_state = NodePath("../big_attack")
-
 [node name="idle_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state", "transition")]
 unique_name_in_owner = true
 script = ExtResource("11_lmyte")
 follow_state = NodePath("../follow_state")
 transition = NodePath("../transition_state")
+
+[node name="follow_state" type="Node" parent="State_machine" node_paths=PackedStringArray("short_attack_state", "long_attack_state", "transition", "big_attack_state", "upper_laser_state")]
+script = ExtResource("5_75cnn")
+short_attack_state = NodePath("../short_attack_state")
+long_attack_state = NodePath("../long_attack_state")
+transition = NodePath("../transition_state")
+big_attack_state = NodePath("../big_attack")
+upper_laser_state = NodePath("../uper_laser_state")
 
 [node name="short_attack_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state", "idle_state", "transition", "repost_state")]
 script = ExtResource("7_ipbrq")
@@ -1016,11 +1020,17 @@ idle_state = NodePath("../idle_state")
 script = ExtResource("16_3psye")
 follow_state = NodePath("../follow_state")
 
+[node name="uper_laser_state" type="Node" parent="State_machine" node_paths=PackedStringArray("follow_state", "idle_state")]
+script = ExtResource("22_4bbq4")
+follow_state = NodePath("../follow_state")
+idle_state = NodePath("../idle_state")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/wake_up_state" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/short_attack_state" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/repost_attack_state" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/long_attack_state" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/big_attack" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/transition_state" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/uper_laser_state" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="attack_start_timer" to="State_machine/follow_state" method="_on_attack_start_timer_timeout"]
 [connection signal="timeout" from="idle_timer" to="State_machine/idle_state" method="_on_idle_timer_timeout"]

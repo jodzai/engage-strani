@@ -7,6 +7,7 @@ extends State
 @export var long_attack_state: State
 @export var transition: State
 @export var big_attack_state: State
+@export var upper_laser_state: State
 
 var parent: Boss
 var player: CharacterBody2D
@@ -22,13 +23,10 @@ func enter() -> void:
 	start_dir = player.global_position - parent.global_position
 	start_dir.y = 0
 	start_dir = start_dir.normalized()
-	
 	if parent.big_attack_able:
 		animated_sprite.play("demon_idle")
 	else:
 		animated_sprite.play("walking")
-	
-	
 	if start_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:
@@ -51,21 +49,29 @@ func process_physics(delta:float) -> State:
 	#Ako biva preskočen onda treba da se okrene
 	#nema veze :(
 	#Prvi put kad anailazi na igrača biće šort atack
-	if parent.global_position.x - player.global_position.x < parent.attack_change_len and !player_entered_zone:
+	if abs(parent.global_position.x - player.global_position.x) < parent.attack_change_len and !player_entered_zone:
 		player_entered_zone = true
 		attack_start_timer.start()
 		return short_attack_state
 	
 	#Svaki sledeći napad se određuje ovde
 	if player_entered_zone and attack_start_timer_ended:
-		if parent.global_position.x - player.global_position.x < parent.attack_change_len:
-			return short_attack_state
+		if abs(parent.global_position.x - player.global_position.x) < parent.attack_change_len:
+			if parent.big_attack_able:
+				if abs(parent.global_position.y - player.global_position.y) > 60:
+					return upper_laser_state
+				else:
+					return short_attack_state
+			else:
+				return short_attack_state
 		else:
 			if parent.big_attack_able:
 				var rand = randf()
-				print(rand)
 				if rand > 0.5:
-					return long_attack_state
+					if abs(parent.global_position.y - player.global_position.y) > 60:
+						return upper_laser_state
+					else:
+						return long_attack_state
 				else:
 					return big_attack_state
 			else:
@@ -73,8 +79,8 @@ func process_physics(delta:float) -> State:
 	
 	#dodajem deo koji će da uspori bossa tako da ne bi poludeo oko playera
 	#min distanca pomeranja
-	if parent.global_position.distance_squared_to(player.global_position) > 50*50:
-		parent.velocity = curr_dir.normalized() * parent.speed * delta * 100
+	if abs(parent.global_position.x - player.global_position.x) > 50:
+		parent.velocity = curr_dir.normalized() * abs(parent.global_position-player.global_position)/parent.speed * delta * 100
 	else:
 		parent.velocity -= parent.velocity*0.2
 	return null

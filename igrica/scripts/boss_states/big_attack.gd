@@ -14,7 +14,10 @@ var attack_anim_ended = false
 func enter() -> void:
 	$"../../Label".text = "BIIIG BOOOIII!!!"
 	
-	animated_sprite.play("long_attack")
+	if parent.big_attack_able:
+		animated_sprite.play("demon_tunder")
+	else:
+		animated_sprite.play("long_attack")
 	if follow_state.curr_dir.x > 0:
 		animated_sprite.flip_h = true
 	else:
